@@ -1,0 +1,247 @@
+[
+  {
+    "id": "overview",
+    "title": "Platform Overview",
+    "intro": "Verdia sits between Shopify and the store owner. You connect your Shopify store once; Verdia imports your store data, keeps it current through Shopify webhooks, and gives you one calm dashboard to manage it — with every change you make sent back to Shopify.",
+    "bullets": [
+      "Shopify stays the source of truth; Verdia is the place you work from.",
+      "Catalog, orders, customers, content, files and metafields in a single dashboard.",
+      "Real-time updates through verified Shopify webhooks, plus on-demand re-syncs.",
+      "Outbound sync pushes the edits you make in Verdia back to your store.",
+      "Arabic and English, light and dark, on desktop and mobile."
+    ]
+  },
+  {
+    "id": "why-verdia",
+    "title": "Why Verdia",
+    "intro": "Verdia is designed for merchants and teams who want a clearer, faster view of their store than the Shopify admin alone provides — without replacing Shopify.",
+    "bullets": [
+      "One place for day-to-day operations: products, stock, orders and customers.",
+      "Structured sync pipelines with logs, retries and a visible outbound queue.",
+      "Store-level isolation: every store only ever sees its own data.",
+      "Clean REST APIs so your storefront or mobile app can read the same data.",
+      "A calm, bilingual interface built for long working sessions."
+    ]
+  },
+  {
+    "id": "core-workflows",
+    "title": "Core Workflows",
+    "intro": "Everything below is imported from your store through the Shopify Admin API and kept current by webhooks.",
+    "groups": [
+      {
+        "heading": "Catalog",
+        "items": [
+          "Products, variants, collections, tags, vendors and product types.",
+          "Product media, files and metafields.",
+          "Selling plans for subscriptions and pre-orders."
+        ]
+      },
+      {
+        "heading": "Inventory & pricing",
+        "items": [
+          "Variant-level stock across locations.",
+          "Bulk and targeted price updates, queued and pushed back to Shopify.",
+          "Markets and price lists."
+        ]
+      },
+      {
+        "heading": "Orders & customers",
+        "items": [
+          "Orders, draft orders, fulfillments and refunds.",
+          "Customers and their marketing consent.",
+          "Discounts and shipping zones."
+        ]
+      },
+      {
+        "heading": "Content",
+        "items": [
+          "Blogs and articles.",
+          "Pages and navigation menus.",
+          "Files uploaded to your store."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "connect-store",
+    "title": "How To Connect A Store",
+    "intro": "Connecting takes a few minutes. You need your store's myshopify.com domain and an Admin API access token from a custom app in your Shopify admin.",
+    "steps": [
+      "In Shopify admin, open Settings → Apps and sales channels → Develop apps, and create a custom app for Verdia.",
+      "Grant the Admin API read and write scopes for the data you want Verdia to manage (products, inventory, orders, customers, content, and so on), then install the app.",
+      "Copy the Admin API access token — Shopify shows it only once.",
+      "In Verdia, add your store with its domain (your-store.myshopify.com) and paste the token. It is encrypted before it is saved.",
+      "Run the initial sync. Verdia imports your catalog, orders, customers and content, then registers the webhooks that keep them current.",
+      "Check the connection status and sync logs on the dashboard before inviting your team."
+    ],
+    "note": "Use one connection per store and never reuse an access token across stores. If a token is ever exposed, revoke it in Shopify, generate a new one and update it in Verdia."
+  },
+  {
+    "id": "mobile-integration",
+    "title": "Mobile & Storefront Integration",
+    "intro": "Verdia exposes storefront endpoints under /mobile so a Flutter or web app can read the same synced data. Every request needs store context: always send store_id, and optionally warehouse_name for channel-specific product feeds.",
+    "bullets": [
+      "Call the bootstrap endpoint first to preload store branding, featured products and payment methods.",
+      "warehouse_name filtering returns items for that warehouse plus global items (null, empty or all).",
+      "Call the quote endpoint before placing a draft order so customers see exact totals."
+    ],
+    "code": "GET  https://api.collectify.sbs/api/mobile/bootstrap?store_id={uuid}&warehouse_name=BRAND VIP WEB\nGET  https://api.collectify.sbs/api/mobile/products?store_id={uuid}&warehouse_name=BRAND VIP WEB&per_page=20\nGET  https://api.collectify.sbs/api/mobile/collections?store_id={uuid}&warehouse_name=BRAND VIP WEB\nGET  https://api.collectify.sbs/api/mobile/search?store_id={uuid}&warehouse_name=BRAND VIP WEB&q=lip\nPOST https://api.collectify.sbs/api/mobile/checkout/quote\nPOST https://api.collectify.sbs/api/mobile/checkout/place-draft-order"
+  },
+  {
+    "id": "rest-api",
+    "title": "REST API Guide",
+    "intro": "All endpoints accept and return JSON. Storefront routes require store_id in the request; protected routes require a Bearer token in the Authorization header.",
+    "baseUrl": "https://api.collectify.sbs/api",
+    "routes": [
+      {
+        "method": "GET",
+        "path": "/mobile/bootstrap",
+        "purpose": "Store profile, featured catalog blocks and payment method references."
+      },
+      {
+        "method": "GET",
+        "path": "/mobile/navigation",
+        "purpose": "Navigation menus synced from Shopify."
+      },
+      {
+        "method": "GET",
+        "path": "/mobile/products",
+        "purpose": "Paginated product listing with optional search and warehouse filter."
+      },
+      {
+        "method": "GET",
+        "path": "/mobile/products/{id}",
+        "purpose": "Product details with variants, collections and tags."
+      },
+      {
+        "method": "GET",
+        "path": "/mobile/collections",
+        "purpose": "Collections for the current store."
+      },
+      {
+        "method": "GET",
+        "path": "/mobile/collections/{id}",
+        "purpose": "Collection details with its products."
+      },
+      {
+        "method": "GET",
+        "path": "/mobile/pages",
+        "purpose": "Published pages for the storefront app."
+      },
+      {
+        "method": "GET",
+        "path": "/mobile/blogs",
+        "purpose": "Published blogs."
+      },
+      {
+        "method": "GET",
+        "path": "/mobile/blogs/{blogId}/articles",
+        "purpose": "Articles of a blog, for content screens."
+      },
+      {
+        "method": "GET",
+        "path": "/mobile/payment-methods",
+        "purpose": "Enabled payment options and supported method references."
+      },
+      {
+        "method": "POST",
+        "path": "/mobile/checkout/quote",
+        "purpose": "Calculate totals from variant lines."
+      },
+      {
+        "method": "POST",
+        "path": "/mobile/checkout/place-draft-order",
+        "purpose": "Create a draft order as the pre-checkout step."
+      }
+    ],
+    "sampleRequest": "POST https://api.collectify.sbs/api/mobile/checkout/quote\n\n{\n  \"store_id\": \"your-store-uuid\",\n  \"warehouse_name\": \"BRAND VIP WEB\",\n  \"lines\": [\n    { \"variant_id\": 1201, \"quantity\": 2 },\n    { \"variant_id\": 1202, \"quantity\": 1 }\n  ]\n}",
+    "sampleResponse": "{\n  \"status\": \"success\",\n  \"data\": {\n    \"totals\": {\n      \"subtotal\": 45.0,\n      \"tax\": 0,\n      \"shipping\": 0,\n      \"discount\": 0,\n      \"grand_total\": 45.0\n    }\n  }\n}"
+  },
+  {
+    "id": "sync-webhooks",
+    "title": "Sync & Webhooks",
+    "intro": "After the initial import, Shopify sends webhooks to Verdia whenever something changes in your store. Each webhook is verified with its HMAC signature before it is processed in the background. You can also trigger a re-sync of any area from the dashboard.",
+    "baseUrl": "https://api.collectify.sbs/api",
+    "routes": [
+      {
+        "method": "POST",
+        "path": "/shopify/webhooks",
+        "purpose": "Receives Shopify webhooks. Requests with an invalid signature are rejected."
+      },
+      {
+        "method": "POST",
+        "path": "/admin/sync/bootstrap",
+        "purpose": "Run the initial sync for the connected store, or for a chosen set of areas."
+      },
+      {
+        "method": "POST",
+        "path": "/admin/sync/products",
+        "purpose": "Re-sync products and variants."
+      },
+      {
+        "method": "POST",
+        "path": "/admin/sync/orders",
+        "purpose": "Re-sync orders."
+      },
+      {
+        "method": "POST",
+        "path": "/admin/sync/webhook-subscriptions",
+        "purpose": "Re-register and refresh the store's webhook subscriptions."
+      },
+      {
+        "method": "GET",
+        "path": "/admin/sync/outbound",
+        "purpose": "List changes queued to be pushed back to Shopify."
+      },
+      {
+        "method": "POST",
+        "path": "/admin/sync/outbound/{id}/retry",
+        "purpose": "Retry a failed outbound change."
+      },
+      {
+        "method": "PUT",
+        "path": "/admin/shopify/webhook-secret",
+        "purpose": "Save the webhook signing secret used to verify incoming webhooks."
+      }
+    ],
+    "note": "The /admin routes require an authenticated merchant account (Bearer token) and always act on your own store only."
+  },
+  {
+    "id": "security",
+    "title": "Security & Best Practices",
+    "bullets": [
+      "Access tokens are encrypted at rest and only ever used server-side — never expose them in a browser or mobile app.",
+      "Every incoming webhook is verified against its HMAC signature before it is trusted.",
+      "Store scope is enforced on the server; never rely on a client-supplied tenant alone.",
+      "Use HTTPS only, and rotate your Admin API token if you suspect it has leaked.",
+      "Grant your Shopify custom app only the scopes you need.",
+      "Keep sync failures visible: review sync logs and retry outbound changes from the dashboard."
+    ]
+  },
+  {
+    "id": "troubleshooting",
+    "title": "Troubleshooting",
+    "faq": [
+      {
+        "q": "The connection fails when I add my store.",
+        "a": "Check that the domain is your myshopify.com domain (not a custom domain) and that the access token was copied in full. If the app was uninstalled or the token revoked in Shopify, generate a new token and update it in Verdia."
+      },
+      {
+        "q": "Some data is missing after the first sync.",
+        "a": "The custom app probably lacks a read scope for that data. Add the missing scope in Shopify, reinstall the app if prompted, then re-run the sync for that area."
+      },
+      {
+        "q": "Changes in Shopify are not appearing in Verdia.",
+        "a": "Re-register webhook subscriptions from the dashboard and make sure the webhook secret saved in Verdia matches your app's signing secret. Webhooks with a wrong signature are rejected."
+      },
+      {
+        "q": "An edit I made in Verdia did not reach Shopify.",
+        "a": "Open the outbound sync queue. Failed items show the error returned by Shopify (often a missing write scope or a validation rule) and can be retried once fixed."
+      },
+      {
+        "q": "Products are missing in one mobile channel.",
+        "a": "Check the warehouse_name sent by the app and confirm the products are assigned to that warehouse or to all warehouses."
+      }
+    ]
+  }
+]

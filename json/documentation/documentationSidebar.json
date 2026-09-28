@@ -1,0 +1,38 @@
+[
+  {
+    "id": "overview",
+    "title": "Overview"
+  },
+  {
+    "id": "why-verdia",
+    "title": "Why Verdia"
+  },
+  {
+    "id": "core-workflows",
+    "title": "Core Workflows"
+  },
+  {
+    "id": "connect-store",
+    "title": "Connect Your Store"
+  },
+  {
+    "id": "mobile-integration",
+    "title": "Mobile & Storefront"
+  },
+  {
+    "id": "rest-api",
+    "title": "REST API Guide"
+  },
+  {
+    "id": "sync-webhooks",
+    "title": "Sync & Webhooks"
+  },
+  {
+    "id": "security",
+    "title": "Security & Best Practices"
+  },
+  {
+    "id": "troubleshooting",
+    "title": "Troubleshooting"
+  }
+]
