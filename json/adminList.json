@@ -2,7 +2,19 @@
   "Dashboard": {
     "name": null,
     "path": "/admin/",
-    "perId": "index"
+    "perId": "index",
+    "roles": [
+      "admin",
+      "partner"
+    ]
+  },
+  "Site analytics": {
+    "name": null,
+    "path": "/admin/site-analytics",
+    "perId": "site-analytics",
+    "roles": [
+      "admin"
+    ]
   },
   "Accounts Manage": {
     "perId": "accounts-manager",
@@ -18,18 +30,72 @@
       "listTitle": "",
       "perId": "accounts-manager-roles"
     },
-    "Store Profile": {
-      "name": null,
-      "path": "/admin/accounts-manage",
-      "listTitle": "",
-      "perId": "accounts-manager"
-    },
     "Permissions": {
       "name": null,
       "path": "/admin/allpermissions",
       "listTitle": "",
       "perId": "accounts-manager-permissions"
-    }
+    },
+    "roles": [
+      "admin"
+    ]
+  },
+  "Stores": {
+    "perId": "shopify-stores",
+    "Stores": {
+      "name": null,
+      "path": "/admin/allstores",
+      "listTitle": "",
+      "perId": "shopify-stores-table"
+    },
+    "Plans": {
+      "name": null,
+      "path": "/admin/stores/plans",
+      "perId": "shopify-stores-plan"
+    },
+    "Subscriptions": {
+      "name": null,
+      "path": "/admin/stores/subscriptions",
+      "perId": "shopify-stores-subscriptions"
+    },
+    "roles": [
+      "admin"
+    ]
+  },
+  "Localization": {
+    "perId": "localization",
+    "Languages": {
+      "name": null,
+      "path": "/admin/languages",
+      "listTitle": "",
+      "perId": "localization-languages"
+    },
+    "Countries": {
+      "name": null,
+      "path": "/admin/allcountries",
+      "perId": "localization-location"
+    },
+    "roles": [
+      "admin"
+    ]
+  },
+  "My Store": {
+    "perId": "my-store",
+    "Connect & Sync": {
+      "name": null,
+      "path": "/admin/my-store",
+      "listTitle": "",
+      "perId": "my-store"
+    },
+    "Store Profile": {
+      "name": null,
+      "path": "/admin/accounts-manage",
+      "listTitle": "",
+      "perId": "my-store"
+    },
+    "roles": [
+      "partner"
+    ]
   },
   "Products": {
     "perId": "products",
@@ -80,25 +146,37 @@
       "path": "/admin/inventory",
       "listTitle": "",
       "perId": "products-table"
-    }
+    },
+    "roles": [
+      "partner"
+    ]
   },
   "Files": {
     "perId": "files",
     "name": null,
     "path": "/admin/Allfiles",
-    "listTitle": ""
+    "listTitle": "",
+    "roles": [
+      "partner"
+    ]
   },
   "Customers": {
     "perId": "customers",
     "name": null,
     "path": "/admin/Allcustomers",
-    "listTitle": ""
+    "listTitle": "",
+    "roles": [
+      "partner"
+    ]
   },
   "Shipping": {
     "perId": "fulfillments",
     "name": null,
     "path": "/admin/shipping-zones",
-    "listTitle": ""
+    "listTitle": "",
+    "roles": [
+      "partner"
+    ]
   },
   "Orders & Carts": {
     "perId": "orders",
@@ -143,7 +221,10 @@
       "path": "/admin/orders/return-items",
       "listTitle": "",
       "perId": "orders-table"
-    }
+    },
+    "roles": [
+      "partner"
+    ]
   },
   "Fulfillments": {
     "perId": "fulfillments",
@@ -170,7 +251,10 @@
       "path": "/admin/fulfillments/reverse",
       "listTitle": "",
       "perId": "fulfillments-table"
-    }
+    },
+    "roles": [
+      "partner"
+    ]
   },
   "Financials": {
     "perId": "financials",
@@ -185,7 +269,10 @@
       "path": "/admin/financials/refunds",
       "listTitle": "",
       "perId": "financials-table"
-    }
+    },
+    "roles": [
+      "partner"
+    ]
   },
   "Discounts": {
     "perId": "discounts",
@@ -206,7 +293,10 @@
       "path": "/admin/discounts/usages",
       "listTitle": "",
       "perId": "discounts-table"
-    }
+    },
+    "roles": [
+      "partner"
+    ]
   },
   "Content": {
     "perId": "content",
@@ -227,7 +317,10 @@
       "path": "/admin/menus",
       "listTitle": "",
       "perId": "content-table"
-    }
+    },
+    "roles": [
+      "partner"
+    ]
   },
   "Commerce": {
     "perId": "products",
@@ -260,40 +353,10 @@
       "path": "/admin/commerce/exchanges",
       "listTitle": "",
       "perId": "products-table"
-    }
-  },
-  "Stores": {
-    "perId": "shopify-stores",
-    "Stores": {
-      "name": null,
-      "path": "/admin/allstores",
-      "listTitle": "",
-      "perId": "shopify-stores-table"
     },
-    "Plans": {
-      "name": null,
-      "path": "/admin/stores/plans",
-      "perId": "shopify-stores-plan"
-    },
-    "Subscriptions": {
-      "name": null,
-      "path": "/admin/stores/subscriptions",
-      "perId": "shopify-stores-subscriptions"
-    }
-  },
-  "Localization": {
-    "perId": "localization",
-    "Languages": {
-      "name": null,
-      "path": "/admin/languages",
-      "listTitle": "",
-      "perId": "localization-languages"
-    },
-    "Countries": {
-      "name": null,
-      "path": "/admin/allcountries",
-      "perId": "localization-location"
-    }
+    "roles": [
+      "partner"
+    ]
   },
   "Help": {
     "perId": "help",
@@ -316,12 +379,20 @@
       "path": "/admin/help/tables-data-dictionary",
       "listTitle": "",
       "perId": "help"
-    }
+    },
+    "roles": [
+      "admin",
+      "partner"
+    ]
   },
   "Back To Site": {
     "name": null,
     "path": "/",
     "listTitle": "",
-    "perId": "backToSite"
+    "perId": "backToSite",
+    "roles": [
+      "admin",
+      "partner"
+    ]
   }
 }
