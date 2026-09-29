@@ -2,19 +2,19 @@
   {
     "id": "overview",
     "title": "Platform Overview",
-    "intro": "Verdia sits between Shopify and the store owner. You connect your Shopify store once; Verdia imports your store data, keeps it current through Shopify webhooks, and gives you one calm dashboard to manage it — with every change you make sent back to Shopify.",
+    "intro": "Collectify sits between Shopify and the store owner. You connect your Shopify store once; Collectify imports your store data, keeps it current through Shopify webhooks, and gives you one calm dashboard to manage it — with every change you make sent back to Shopify.",
     "bullets": [
-      "Shopify stays the source of truth; Verdia is the place you work from.",
+      "Shopify stays the source of truth; Collectify is the place you work from.",
       "Catalog, orders, customers, content, files and metafields in a single dashboard.",
       "Real-time updates through verified Shopify webhooks, plus on-demand re-syncs.",
-      "Outbound sync pushes the edits you make in Verdia back to your store.",
+      "Outbound sync pushes the edits you make in Collectify back to your store.",
       "Arabic and English, light and dark, on desktop and mobile."
     ]
   },
   {
-    "id": "why-verdia",
-    "title": "Why Verdia",
-    "intro": "Verdia is designed for merchants and teams who want a clearer, faster view of their store than the Shopify admin alone provides — without replacing Shopify.",
+    "id": "why-collectify",
+    "title": "Why Collectify",
+    "intro": "Collectify is designed for merchants and teams who want a clearer, faster view of their store than the Shopify admin alone provides — without replacing Shopify.",
     "bullets": [
       "One place for day-to-day operations: products, stock, orders and customers.",
       "Structured sync pipelines with logs, retries and a visible outbound queue.",
@@ -67,19 +67,19 @@
     "title": "How To Connect A Store",
     "intro": "Connecting takes a few minutes. You need your store's myshopify.com domain and an Admin API access token from a custom app in your Shopify admin.",
     "steps": [
-      "In Shopify admin, open Settings → Apps and sales channels → Develop apps, and create a custom app for Verdia.",
-      "Grant the Admin API read and write scopes for the data you want Verdia to manage (products, inventory, orders, customers, content, and so on), then install the app.",
+      "In Shopify admin, open Settings → Apps and sales channels → Develop apps, and create a custom app for Collectify.",
+      "Grant the Admin API read and write scopes for the data you want Collectify to manage (products, inventory, orders, customers, content, and so on), then install the app.",
       "Copy the Admin API access token — Shopify shows it only once.",
-      "In Verdia, add your store with its domain (your-store.myshopify.com) and paste the token. It is encrypted before it is saved.",
-      "Run the initial sync. Verdia imports your catalog, orders, customers and content, then registers the webhooks that keep them current.",
+      "In Collectify, add your store with its domain (your-store.myshopify.com) and paste the token. It is encrypted before it is saved.",
+      "Run the initial sync. Collectify imports your catalog, orders, customers and content, then registers the webhooks that keep them current.",
       "Check the connection status and sync logs on the dashboard before inviting your team."
     ],
-    "note": "Use one connection per store and never reuse an access token across stores. If a token is ever exposed, revoke it in Shopify, generate a new one and update it in Verdia."
+    "note": "Use one connection per store and never reuse an access token across stores. If a token is ever exposed, revoke it in Shopify, generate a new one and update it in Collectify."
   },
   {
     "id": "mobile-integration",
     "title": "Mobile & Storefront Integration",
-    "intro": "Verdia exposes storefront endpoints under /mobile so a Flutter or web app can read the same synced data. Every request needs store context: always send store_id, and optionally warehouse_name for channel-specific product feeds.",
+    "intro": "Collectify exposes storefront endpoints under /mobile so a Flutter or web app can read the same synced data. Every request needs store context: always send store_id, and optionally warehouse_name for channel-specific product feeds.",
     "bullets": [
       "Call the bootstrap endpoint first to preload store branding, featured products and payment methods.",
       "warehouse_name filtering returns items for that warehouse plus global items (null, empty or all).",
@@ -160,7 +160,7 @@
   {
     "id": "sync-webhooks",
     "title": "Sync & Webhooks",
-    "intro": "After the initial import, Shopify sends webhooks to Verdia whenever something changes in your store. Each webhook is verified with its HMAC signature before it is processed in the background. You can also trigger a re-sync of any area from the dashboard.",
+    "intro": "After the initial import, Shopify sends webhooks to Collectify whenever something changes in your store. Each webhook is verified with its HMAC signature before it is processed in the background. You can also trigger a re-sync of any area from the dashboard.",
     "baseUrl": "https://api.collectify.sbs/api",
     "routes": [
       {
@@ -224,18 +224,18 @@
     "faq": [
       {
         "q": "The connection fails when I add my store.",
-        "a": "Check that the domain is your myshopify.com domain (not a custom domain) and that the access token was copied in full. If the app was uninstalled or the token revoked in Shopify, generate a new token and update it in Verdia."
+        "a": "Check that the domain is your myshopify.com domain (not a custom domain) and that the access token was copied in full. If the app was uninstalled or the token revoked in Shopify, generate a new token and update it in Collectify."
       },
       {
         "q": "Some data is missing after the first sync.",
         "a": "The custom app probably lacks a read scope for that data. Add the missing scope in Shopify, reinstall the app if prompted, then re-run the sync for that area."
       },
       {
-        "q": "Changes in Shopify are not appearing in Verdia.",
-        "a": "Re-register webhook subscriptions from the dashboard and make sure the webhook secret saved in Verdia matches your app's signing secret. Webhooks with a wrong signature are rejected."
+        "q": "Changes in Shopify are not appearing in Collectify.",
+        "a": "Re-register webhook subscriptions from the dashboard and make sure the webhook secret saved in Collectify matches your app's signing secret. Webhooks with a wrong signature are rejected."
       },
       {
-        "q": "An edit I made in Verdia did not reach Shopify.",
+        "q": "An edit I made in Collectify did not reach Shopify.",
         "a": "Open the outbound sync queue. Failed items show the error returned by Shopify (often a missing write scope or a validation rule) and can be retried once fixed."
       },
       {
