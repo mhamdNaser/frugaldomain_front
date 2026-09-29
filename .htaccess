@@ -1,19 +1,31 @@
+# Prerendered pages live in folders (Faq/index.html). By default Apache answers
+# "/Faq" with a 301 to "/Faq/", while each page's canonical and the sitemap use
+# "/Faq" - so search engines saw every page as a redirect. Serve the folder's
+# index.html at the slash-less URL instead.
+DirectorySlash Off
+
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
 
-  # Let real files and directories pass through.
-  RewriteCond %{REQUEST_FILENAME} -f [OR]
-  RewriteCond %{REQUEST_FILENAME} -d
-  RewriteRule ^ - [L]
+  # "/Faq/" -> "/Faq": one canonical address per prerendered page.
+  RewriteCond %{DOCUMENT_ROOT}/$1/index.html -f
+  RewriteRule ^(.+)/$ /$1 [R=301,L]
 
-  # Apps published under /apps/<slug>/ are self-contained builds with their own
-  # index.html and their own routing. A deep link inside one must never fall
-  # through to this SPA's index.html, or the app would boot Fruga instead.
-  # /apps and /apps/ themselves are left alone so the gallery route still works:
-  # the prerendered apps/index.html is a real file and is matched by the rule
-  # above, and each app folder carries its own .htaccess for internal routes.
-  RewriteRule ^apps/.+ - [L]
+  # The build runs on Windows, where "about-us/..." and "About-Us" are the same
+  # folder, so the profile snapshot lands under About-Us/. Linux is case
+  # sensitive, so map the lowercase route onto it explicitly.
+  RewriteCond %{DOCUMENT_ROOT}/about-us/muhammed-nasser-edden/index.html !-f
+  RewriteCond %{DOCUMENT_ROOT}/About-Us/muhammed-nasser-edden/index.html -f
+  RewriteRule ^about-us/muhammed-nasser-edden/?$ About-Us/muhammed-nasser-edden/index.html [L]
+
+  # "/Faq" -> Faq/index.html, served in place (no redirect).
+  RewriteCond %{DOCUMENT_ROOT}/$1/index.html -f
+  RewriteRule ^(.+)$ $1/index.html [L]
+
+  # Let real files pass through.
+  RewriteCond %{REQUEST_FILENAME} -f
+  RewriteRule ^ - [L]
 
   # SPA fallback.
   RewriteRule . /index.html [L]
